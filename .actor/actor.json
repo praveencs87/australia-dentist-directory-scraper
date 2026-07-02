@@ -1,0 +1,37 @@
+{
+    "actorSpecification": 1,
+    "name": "australia-dentist-directory-scraper",
+    "title": "Australia Dentist Directory Scraper",
+    "description": "Extract premium dental clinic leads (phone, website, address, reviews) across Australia. Perfect for B2B outreach and healthcare marketing.",
+    "version": "1.0",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "minMemoryMbytes": 1024,
+    "maxMemoryMbytes": 4096,
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingEvents": [
+        {
+            "eventName": "apify-actor-start",
+            "pricePerEvent": 0.25,
+            "description": "Base fee for starting the crawler (Playwright overhead)"
+        },
+        {
+            "eventName": "lead-extracted",
+            "pricePerEvent": 0.004,
+            "description": "Charged per dental lead successfully extracted ($4.00 per 1k leads)"
+        }
+    ],
+    "isPublic": true,
+    "seoTitle": "Australia Dentist Directory Scraper | HealthEngine Extractor",
+    "seoDescription": "Scrape premium dental leads, orthodontists, and dental clinics across Australia. Extract phone numbers, ratings, and websites for B2B healthcare marketing.",
+    "categories": [
+        "LEAD_GENERATION",
+        "BUSINESS",
+        "HEALTH"
+    ],
+    "defaultRunOptions": {
+        "build": "latest",
+        "timeoutSecs": 3600,
+        "memoryMbytes": 1024
+    }
+}

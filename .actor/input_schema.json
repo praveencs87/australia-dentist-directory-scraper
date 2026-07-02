@@ -1,0 +1,36 @@
+{
+    "title": "Australia Dentist Directory Scraper Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "keyword": {
+            "title": "Keyword / Specialty",
+            "type": "string",
+            "description": "The specific dental niche (e.g., 'dentist', 'orthodontist', 'periodontist').",
+            "editor": "textfield",
+            "prefill": "dentist"
+        },
+        "location": {
+            "title": "Location (State, City, or Suburb)",
+            "type": "string",
+            "description": "The Australian location (e.g., 'Sydney', 'NSW', 'Australia').",
+            "editor": "textfield",
+            "prefill": "Sydney"
+        },
+        "maxLeads": {
+            "title": "Maximum Leads",
+            "type": "integer",
+            "description": "Maximum number of dental clinic leads to extract.",
+            "default": 100,
+            "minimum": 1
+        },
+        "proxyConfiguration": {
+            "title": "Proxy Configuration",
+            "type": "object",
+            "description": "Proxy settings. Apify Residential Proxy is highly recommended.",
+            "prefill": { "useApifyProxy": true },
+            "editor": "proxy"
+        }
+    },
+    "required": ["keyword", "location"]
+}
