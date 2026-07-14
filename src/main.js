@@ -7,8 +7,7 @@ await Actor.init();
 try {
     const input = await Actor.getInput();
     const { 
-        keyword = 'dentist', 
-        location = 'Sydney', 
+        startUrls = [],
         maxLeads = 100,
         proxyConfiguration 
     } = input || {};
@@ -18,7 +17,7 @@ try {
         apifyProxyGroups: ['RESIDENTIAL']
     });
 
-    log.info(`Searching HealthEngine Australia for "${keyword}" in "${location}"`);
+    log.info(`Searching HealthEngine Australia...`);
     await Actor.charge({ eventName: 'apify-actor-start', count: 1 });
 
     let extractedCount = 0;
@@ -87,7 +86,7 @@ try {
                 if (clinicName && clinicName.length > 2) {
                     const record = {
                         clinicName,
-                        specialty: keyword,
+                        specialty: '',
                         address,
                         phone,
                         rating,
@@ -122,11 +121,14 @@ try {
         }
     });
 
-    const startUrl = `https://healthengine.com.au/find/${encodeURIComponent(keyword.toLowerCase())}/${encodeURIComponent(location)}`;
-    
-    await crawler.addRequests([{
-        url: startUrl
-    }]);
+    if (startUrls && startUrls.length > 0) {
+        for (const req of startUrls) {
+            await crawler.addRequests([{ url: typeof req === 'string' ? req : req.url }]);
+        }
+    } else {
+        log.warning('No startUrls provided. Using default.');
+        await crawler.addRequests([{ url: 'https://www.yellowpages.com.au/search/listings?clue=dentist&locationClue=Sydney' }]);
+    }
 
     armKillSwitch(crawler);
     await crawler.run();

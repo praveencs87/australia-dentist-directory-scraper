@@ -3,19 +3,14 @@
     "type": "object",
     "schemaVersion": 1,
     "properties": {
-        "keyword": {
-            "title": "Keyword / Specialty",
-            "type": "string",
-            "description": "The specific dental niche (e.g., 'dentist', 'orthodontist', 'periodontist').",
-            "editor": "textfield",
-            "prefill": "dentist"
-        },
-        "location": {
-            "title": "Location (State, City, or Suburb)",
-            "type": "string",
-            "description": "The Australian location (e.g., 'Sydney', 'NSW', 'Australia').",
-            "editor": "textfield",
-            "prefill": "Sydney"
+        "startUrls": {
+            "title": "Start URLs",
+            "type": "array",
+            "description": "List of search URLs to scrape.",
+            "editor": "requestListSources",
+            "prefill": [
+                { "url": "https://www.yellowpages.com.au/search/listings?clue=dentist&locationClue=Sydney" }
+            ]
         },
         "maxLeads": {
             "title": "Maximum Leads",
@@ -32,5 +27,5 @@
             "editor": "proxy"
         }
     },
-    "required": ["keyword", "location"]
+    "required": ["startUrls"]
 }
